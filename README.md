@@ -1,5 +1,7 @@
 # DJP-API
 
+Wrapper API Server menggunakan Fastify.
+
 installing github module as npm module
 ```
 git clone https://github.com/nasyarobby/djp-api/ djp-api
@@ -21,4 +23,14 @@ const DJPApi = require("djp-api");
 
 const app = new DJPApi();
 app.start();
+```
+
+```
+const config = {
+    port: 3000,
+    address: "0.0.0.0",
+    service: {index: function(req, res){res.box("Message", {namaService: "DJP-API"})};},
+    specificationFilePath: __dirname+"/swagger.json",
+}
+const app = new DJPApi(config);
 ```
