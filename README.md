@@ -3,7 +3,7 @@
 Wrapper API Server menggunakan Fastify.
 
 installing github module as npm module
-```
+```bash
 git clone https://github.com/nasyarobby/djp-api/ djp-api
 mkdir new-api-project
 cd new-api-project
@@ -18,14 +18,14 @@ npm install https://github.com/nasyarobby/djp-api/
 ```
 
 cara menggunakan module (index.js)
-```
+```javascript 
 const DJPApi = require("djp-api");
 
 const app = new DJPApi();
 app.start();
 ```
 
-```
+```javascript 
 const config = {
     port: 3000,
     address: "0.0.0.0",
