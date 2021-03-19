@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DJPFast",
+    "description": "Default Swagger Specification.\n\n```\nconst app = new DJPFast();\napp.start();\n```",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:3000/v1"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Successful Response"],
+        "operationId": "index",
+        "responses": {
+          "200": {
+            "description": "Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/clientError": {
+      "get": {
+        "tags": ["Errors"],
+        "operationId": "clientError",
+        "responses": {
+          "200": {
+            "description": "Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/serverError": {
+      "get": {
+        "tags": ["Errors"],
+        "operationId": "serverError",
+        "responses": {
+          "200": {
+            "description": "Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/unhandledError": {
+      "get": {
+        "tags": ["Errors"],
+        "operationId": "unhandledError",
+        "responses": {
+          "200": {
+            "description": "Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommonResponse": {
+        "title": "CommonResponse",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["success", "fail", "error"],
+            "description": "Response Status",
+            "example": "error"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int64",
+            "example": 500,
+            "description": "Response Code"
+          },
+          "message": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Message Text.",
+            "example": "Missing field value"
+          }
+        }
+      },
+      "DataResponse": {
+        "title": "Data Response",
+        "allOf": [
+          { "$ref": "#/components/schemas/CommonResponse" },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "djp-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nasyarobby N Putra",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.14.0",
+    "fastify-openapi-glue": "^2.4.0",
+    "fastify-swagger": "^4.4.2",
+    "pino-pretty": "^4.7.1"
+  }
+}
