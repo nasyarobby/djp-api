@@ -10,7 +10,12 @@ npm install ../djp-api
 code index.js
 ```
 
-index.js
+atau
+```
+npm install https://github.com/nasyarobby/djp-api/
+```
+
+cara menggunakan module (index.js)
 ```
 const DJPApi = require("djp-api");
 
