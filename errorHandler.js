@@ -1,3 +1,5 @@
+const { ClientError, ServerError } = require("./utils/errors");
+
 module.exports.errorHandler = (error, request, reply) => {
   if (error.validation && error.validation.length > 0) {
     const path = error.validation[0].dataPath;
@@ -16,8 +18,6 @@ module.exports.errorHandler = (error, request, reply) => {
       error.status
     );
   }
-
-  app.log.error(error);
 
   return reply.box(
     process.env.NODE_ENV !== "production"
