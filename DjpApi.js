@@ -22,7 +22,6 @@ function DJPApi(config) {
     logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss Z o" } },
     pluginTimeout: 10000,
   });
-  ssss;
 
   this.port = port || 3000;
   this.address = address;
