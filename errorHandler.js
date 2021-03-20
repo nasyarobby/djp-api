@@ -20,10 +20,10 @@ module.exports.errorHandler = (error, request, reply) => {
   }
 
   return reply.box(
+    "Internal server error",
     process.env.NODE_ENV !== "production"
       ? { ...error.data, stack: error.stack, error: error.error }
       : error.data,
-    "Internal server error",
     500,
     "error"
   );
