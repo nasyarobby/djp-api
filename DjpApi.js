@@ -19,9 +19,10 @@ function DJPApi(config) {
     specificationFilePath || __dirname + "/defaultSwagger.json";
 
   const app = Fastify({
-    logger: { prettyPrint: { translateTime: "SYS:YYYY-MM-DD TT Z o" } },
+    logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss Z o" } },
     pluginTimeout: 10000,
   });
+  ssss;
 
   this.port = port || 3000;
   this.address = address;
