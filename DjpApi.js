@@ -14,14 +14,17 @@ function DJPApi(config) {
     defaultSwaggerServer,
     swaggerOptions,
     notFoundHandler,
+    fastifyConfig,
   } = config || {};
   const specification =
     specificationFilePath || __dirname + "/defaultSwagger.json";
 
-  const app = Fastify({
-    logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss Z o" } },
-    pluginTimeout: 10000,
-  });
+  const app = Fastify(
+    fastifyConfig || {
+      logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss Z o" } },
+      pluginTimeout: 10000,
+    }
+  );
 
   this.port = port || 3000;
   this.address = address;
