@@ -1,16 +1,11 @@
-module.exports.box = function (
-  message,
-  data,
-  code = "200",
-  status = "success",
-  statusCode = 200
-) {
+function send(message, data, config = {}) {
   const response = {
-    message,
-    status,
-    code,
-    data,
+    message: message,
+    status: config.status || "success",
+    code: config.code || config.statusCode || 200,
+    data: data || undefined,
   };
 
-  return this.status(statusCode).send(response);
-};
+  return this.status(config.statusCode || 200).send(response);
+}
+module.exports.box = send;
