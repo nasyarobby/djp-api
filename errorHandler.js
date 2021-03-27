@@ -2,10 +2,21 @@ const { ClientError, ServerError } = require("./utils/errors");
 
 module.exports.errorHandler = (error, request, reply) => {
   if (error.validation && error.validation.length > 0) {
-    const path = error.validation[0].dataPath;
-    const field = path.charAt(1).toUpperCase() + path.slice(2);
-    const message = `${field} ${error.validation[0].message}`;
-    reply.box(message);
+    const message = error.message;
+    return reply.box(
+      message,
+      process.env.NODE_ENV !== "production" && error.validation.length
+        ? {
+            warning:
+              "DATA ONLY APPEARS ON DEV ENVIRONMENT AND WILL NOT BE AVAILABLE IN PRODUCTION ENVIRONMENT. USE ONLY FOR DEBUGGING PURPOSE ONLY.",
+            ...error.validation[0],
+          }
+        : undefined,
+      {
+        code: 400,
+        status: "fail",
+      }
+    );
   }
 
   if (error instanceof ClientError || error instanceof ServerError) {
