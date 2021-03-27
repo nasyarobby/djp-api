@@ -86,6 +86,39 @@
         },
         "deprecated": false
       }
+    },
+    "/validationError": {
+      "get": {
+        "tags": ["Errors"],
+        "operationId": "serverError",
+        "parameters": [
+          {
+            "name": "missingParameters",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "minLength": 15 }
+          },
+          {
+            "name": "missingParameters2",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "components": {
