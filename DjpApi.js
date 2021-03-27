@@ -43,6 +43,7 @@ function DJPApi(config) {
   app.register(openapiGlue, glueOptions);
 
   app.decorateReply("box", box);
+  app.decorateReply("xsend", box);
 
   app.setErrorHandler(errorHandler);
 
