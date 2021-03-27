@@ -25,17 +25,15 @@ module.exports.errorHandler = (error, request, reply) => {
       process.env.NODE_ENV !== "production"
         ? { ...error.data, stack: error.stack, error: error.error }
         : error.data,
-      error.code,
-      error.status
+      { code: error.code, status: error.status }
     );
   }
 
   return reply.box(
     "Internal server error",
     process.env.NODE_ENV !== "production"
-      ? { ...error.data, stack: error.stack, error: error.error }
+      ? { ...error, stack: error.stack, error: error.error }
       : error.data,
-    500,
-    "error"
+    { code: 500, status: "error" }
   );
 };
