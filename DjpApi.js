@@ -16,15 +16,20 @@ function DJPApi(config) {
     notFoundHandler,
     fastifyConfig,
   } = config || {};
+
   const specification =
     specificationFilePath || __dirname + "/defaultSwagger.json";
 
-  const app = Fastify(
-    fastifyConfig || {
-      logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss Z o" } },
-      pluginTimeout: 10000,
-    }
-  );
+  const DEFAULT_FASTIFY_CONFIG = {
+    logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss o" } },
+    pluginTimeout: 10000,
+  }
+
+  const serverConfig = {
+    ...DEFAULT_FASTIFY_CONFIG, ...fastifyConfig
+  };
+
+  const app = Fastify(serverConfig);
 
   this.port = port || 3000;
   this.address = address;
@@ -53,12 +58,12 @@ function DJPApi(config) {
         ? notFoundHandler
         : [notFoundHandler]
       : [
-          function (request, reply) {
-            reply
-              .status(404)
-              .send(request.method + " " + request.url + " cannot be found");
-          },
-        ])
+        function (request, reply) {
+          reply
+            .status(404)
+            .send(request.method + " " + request.url + " cannot be found");
+        },
+      ])
   );
 
   return this;
