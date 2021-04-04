@@ -49,7 +49,7 @@ function DJPApi(config) {
   };
   app.register(openapiGlue, glueOptions);
 
-  app.register(helmet);
+  app.register(helmet, { contentSecurityPolicy: false });
 
   app.decorateReply("box", box);
   app.decorateReply("xsend", box);
