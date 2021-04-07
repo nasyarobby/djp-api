@@ -90,7 +90,7 @@
     "/validationError": {
       "get": {
         "tags": ["Errors"],
-        "operationId": "serverError",
+        "operationId": "index",
         "parameters": [
           {
             "name": "missingParameters",

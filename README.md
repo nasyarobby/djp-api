@@ -27,10 +27,15 @@ app.start();
 
 ```javascript 
 const config = {
-    port: 3000,
-    address: "0.0.0.0",
-    service: {index: function(req, res){res.box("Message", {namaService: "DJP-API"})};},
-    specificationFilePath: __dirname+"/swagger.json",
-}
+  port: 3000,
+  address: '0.0.0.0',
+  service: {
+      index(req, res) { 
+        res.box('Message', { namaService: 'DJP-API' });
+      }
+  },
+  specificationFilePath: `${__dirname}/swagger.json`,
+};
+
 const app = new DJPApi(config);
 ```
