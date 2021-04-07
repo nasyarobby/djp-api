@@ -1,5 +1,6 @@
 const Fastify = require('fastify');
 const openapiGlue = require('fastify-openapi-glue');
+const helmet = require('fastify-helmet');
 const Swagger = require('./Swagger');
 const { defaultService } = require('./defaultService');
 const { box } = require('./box');
@@ -25,7 +26,8 @@ function DJPApi(config) {
   };
 
   const serverConfig = {
-    ...DEFAULT_FASTIFY_CONFIG, ...fastifyConfig,
+    ...DEFAULT_FASTIFY_CONFIG,
+    ...fastifyConfig,
   };
 
   const app = Fastify(serverConfig);
@@ -45,6 +47,8 @@ function DJPApi(config) {
     service: service || defaultService,
   };
   app.register(openapiGlue, glueOptions);
+
+  app.register(helmet, { contentSecurityPolicy: false });
 
   app.decorateReply('box', box);
   app.decorateReply('xsend', box);
