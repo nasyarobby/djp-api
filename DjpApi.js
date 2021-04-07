@@ -55,11 +55,13 @@ function DJPApi(config) {
 
   app.setErrorHandler(errorHandler);
 
-  const x = Array.isArray(notFoundHandler)
+  // Jika config.notFoundHandler belum berupa array, masukkan ke dalam array
+  const arrayNotFoundHandlers = Array.isArray(notFoundHandler)
     ? notFoundHandler
     : [notFoundHandler];
 
-  const y = [
+  // default notFoundHandler -- jika user tidak menset config.notFoundHandler
+  const defaultNotFoundHandler = [
     function handler(request, reply) {
       reply
         .status(404)
@@ -67,10 +69,11 @@ function DJPApi(config) {
     },
   ];
 
+  // Jika config.notFoundHandler tidak ditemukan gunakan defaultNotFoundHandler
   app.setNotFoundHandler(
     ...(notFoundHandler
-      ? x
-      : y),
+      ? arrayNotFoundHandlers
+      : defaultNotFoundHandler),
   );
 
   return this;
