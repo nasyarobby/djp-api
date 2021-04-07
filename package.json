@@ -1,6 +1,6 @@
 {
   "name": "djp-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,10 @@
     "fastify-openapi-glue": "^2.4.0",
     "fastify-swagger": "^4.4.2",
     "pino-pretty": "^4.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
   }
 }
