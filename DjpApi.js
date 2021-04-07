@@ -1,10 +1,10 @@
-const Fastify = require("fastify");
-const Swagger = require("./Swagger");
-const openapiGlue = require("fastify-openapi-glue");
-const helmet = require("fastify-helmet");
-const { defaultService } = require("./defaultService");
-const { box } = require("./box");
-const { errorHandler } = require("./errorHandler");
+const Fastify = require('fastify');
+const openapiGlue = require('fastify-openapi-glue');
+const helmet = require('fastify-helmet');
+const Swagger = require('./Swagger');
+const { defaultService } = require('./defaultService');
+const { box } = require('./box');
+const { errorHandler } = require('./errorHandler');
 
 function DJPApi(config) {
   const {
@@ -18,11 +18,10 @@ function DJPApi(config) {
     fastifyConfig,
   } = config || {};
 
-  const specification =
-    specificationFilePath || __dirname + "/defaultSwagger.json";
+  const specification = specificationFilePath || `${__dirname}/defaultSwagger.json`;
 
   const DEFAULT_FASTIFY_CONFIG = {
-    logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss o" } },
+    logger: { prettyPrint: { translateTime: 'SYS:yy-mm-dd HH:MM:ss o' } },
     pluginTimeout: 10000,
   };
 
@@ -51,38 +50,44 @@ function DJPApi(config) {
 
   app.register(helmet, { contentSecurityPolicy: false });
 
-  app.decorateReply("box", box);
-  app.decorateReply("xsend", box);
+  app.decorateReply('box', box);
+  app.decorateReply('xsend', box);
 
   app.setErrorHandler(errorHandler);
 
+  const x = Array.isArray(notFoundHandler)
+    ? notFoundHandler
+    : [notFoundHandler];
+
+  const y = [
+    function handler(request, reply) {
+      reply
+        .status(404)
+        .send(`${request.method} ${request.url} cannot be found`);
+    },
+  ];
+
   app.setNotFoundHandler(
     ...(notFoundHandler
-      ? Array.isArray(notFoundHandler)
-        ? notFoundHandler
-        : [notFoundHandler]
-      : [
-          function (request, reply) {
-            reply
-              .status(404)
-              .send(request.method + " " + request.url + " cannot be found");
-          },
-        ])
+      ? x
+      : y),
   );
 
   return this;
 }
 
-DJPApi.prototype.start = function (port, address) {
+DJPApi.prototype.start = function start(port, address) {
   this.app.listen(
     port || this.port,
-    address || this.address || "0.0.0.0",
-    (err, listening) => {
+    address || this.address || '0.0.0.0',
+
+    // or (err, listening)
+    (err) => {
       if (err) {
         this.app.log.error(err);
         process.exit(1);
       }
-    }
+    },
   );
 };
 
