@@ -6,6 +6,8 @@ const { defaultService } = require('./defaultService');
 const { box } = require('./box');
 const { errorHandler } = require('./errorHandler');
 
+// TODO: add tests
+
 function DJPApi(config) {
   const {
     port,

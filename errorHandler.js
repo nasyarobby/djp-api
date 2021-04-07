@@ -7,6 +7,7 @@ module.exports.errorHandler = (error, request, reply) => {
     const { message } = error;
     return reply.box(
       message,
+      // TODO: jgn pake env vars, tapi pake argument yang dipass ke config DjpApi
       process.env.NODE_ENV !== 'production' && error.validation.length
         ? {
           warning: DEV_ONLY_MESSAGE,
