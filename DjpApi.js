@@ -6,6 +6,8 @@ const { defaultService } = require('./defaultService');
 const { box } = require('./box');
 const { errorHandler } = require('./errorHandler');
 
+// TODO: add tests
+
 function DJPApi(config) {
   const {
     port,
@@ -18,16 +20,16 @@ function DJPApi(config) {
     fastifyConfig,
   } = config || {};
 
-  const specification =
-    specificationFilePath || __dirname + "/defaultSwagger.json";
+  const specification = specificationFilePath || `${__dirname}/defaultSwagger.json`;
 
   const DEFAULT_FASTIFY_CONFIG = {
-    logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss o" } },
+    logger: { prettyPrint: { translateTime: 'SYS:yy-mm-dd HH:MM:ss o' } },
     pluginTimeout: 10000,
-  }
+  };
 
   const serverConfig = {
-    ...DEFAULT_FASTIFY_CONFIG, ...fastifyConfig
+    ...DEFAULT_FASTIFY_CONFIG,
+    ...fastifyConfig,
   };
 
   const app = Fastify(serverConfig);

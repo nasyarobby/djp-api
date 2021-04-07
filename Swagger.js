@@ -1,7 +1,6 @@
 const FastifySwagger = require('fastify-swagger');
 
 module.exports.setup = function setup(instance) {
-  
   // TODO move this to DjpApi.js
 
   const swaggerServers = [{ url: instance.defaultSwaggerServer || `http://localhost:${instance.port}` }];
