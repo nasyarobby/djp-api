@@ -7,6 +7,7 @@
 
 module.exports.presets = {
   logger: {
+    testing: { level: 'silent' },
     development: { level: 'debug', prettyPrint: { translateTime: 'SYS:yy-mm-dd HH:MM:ss o' } },
     production: { level: 'warn' },
   },
