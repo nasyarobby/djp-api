@@ -1,6 +1,7 @@
 const Fastify = require("fastify");
 const Swagger = require("./Swagger");
 const openapiGlue = require("fastify-openapi-glue");
+const helmet = require("fastify-helmet");
 const { defaultService } = require("./defaultService");
 const { box } = require("./box");
 const { errorHandler } = require("./errorHandler");
@@ -23,10 +24,11 @@ function DJPApi(config) {
   const DEFAULT_FASTIFY_CONFIG = {
     logger: { prettyPrint: { translateTime: "SYS:yy-mm-dd HH:MM:ss o" } },
     pluginTimeout: 10000,
-  }
+  };
 
   const serverConfig = {
-    ...DEFAULT_FASTIFY_CONFIG, ...fastifyConfig
+    ...DEFAULT_FASTIFY_CONFIG,
+    ...fastifyConfig,
   };
 
   const app = Fastify(serverConfig);
@@ -47,6 +49,8 @@ function DJPApi(config) {
   };
   app.register(openapiGlue, glueOptions);
 
+  app.register(helmet, { contentSecurityPolicy: false });
+
   app.decorateReply("box", box);
   app.decorateReply("xsend", box);
 
@@ -58,12 +62,12 @@ function DJPApi(config) {
         ? notFoundHandler
         : [notFoundHandler]
       : [
-        function (request, reply) {
-          reply
-            .status(404)
-            .send(request.method + " " + request.url + " cannot be found");
-        },
-      ])
+          function (request, reply) {
+            reply
+              .status(404)
+              .send(request.method + " " + request.url + " cannot be found");
+          },
+        ])
   );
 
   return this;
