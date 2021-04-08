@@ -1,6 +1,8 @@
 # DJP-API
 
-![alt text](https://github.com/nasyarobby/djp-api/actions/workflows/node.js.yml/badge.svg "Build status")
+![alt text](https://github.com/nasyarobby/djp-api/actions/workflows/node.js.yml/badge.svg?branch=main "Main branch")
+
+![alt text](https://github.com/nasyarobby/djp-api/actions/workflows/node.js.yml/badge.svg?branch=next "Main branch")
 
 Wrapper API Server menggunakan Fastify.
 
