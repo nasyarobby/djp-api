@@ -1,5 +1,7 @@
 # DJP-API
 
+![alt text](https://github.com/nasyarobby/djp-api/actions/workflows/node.js.yml/badge.svg "Build status")
+
 Wrapper API Server menggunakan Fastify.
 
 installing github module as npm module
