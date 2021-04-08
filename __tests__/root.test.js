@@ -55,6 +55,7 @@ test('Debug message shown if NODE_ENV<>production /validationError', async () =>
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).toHaveProperty('data.warning');
+  expect(body).toHaveProperty('data.params');
 });
 
 test('Debug message shown if NODE_ENV<>production /clientError', async () => {
@@ -62,6 +63,7 @@ test('Debug message shown if NODE_ENV<>production /clientError', async () => {
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).toHaveProperty('data.warning');
+  expect(body).toHaveProperty('data.stack');
 });
 
 test('Debug message shown if NODE_ENV<>production /serverError', async () => {
@@ -69,6 +71,7 @@ test('Debug message shown if NODE_ENV<>production /serverError', async () => {
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).toHaveProperty('data.warning');
+  expect(body).toHaveProperty('data.stack');
 });
 
 test('Debug message shown if NODE_ENV<>production /unhandledError', async () => {
@@ -76,6 +79,7 @@ test('Debug message shown if NODE_ENV<>production /unhandledError', async () => 
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).toHaveProperty('data.warning');
+  expect(body).toHaveProperty('data.stack');
 });
 
 test('Debug message not shown if NODE_ENV=production /validationError', async () => {
@@ -84,6 +88,7 @@ test('Debug message not shown if NODE_ENV=production /validationError', async ()
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).not.toHaveProperty('data.warning');
+  expect(body).not.toHaveProperty('data.params');
 });
 
 test('Debug message not shown if NODE_ENV=production /clientError', async () => {
@@ -92,6 +97,7 @@ test('Debug message not shown if NODE_ENV=production /clientError', async () => 
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).not.toHaveProperty('data.warning');
+  expect(body).not.toHaveProperty('data.stack');
 });
 
 test('Debug message not shown if NODE_ENV=production /serverError', async () => {
@@ -100,6 +106,7 @@ test('Debug message not shown if NODE_ENV=production /serverError', async () => 
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).not.toHaveProperty('data.warning');
+  expect(body).not.toHaveProperty('data.stack');
 });
 
 test('Debug message not shown if NODE_ENV=production /unhandledError', async () => {
@@ -108,6 +115,7 @@ test('Debug message not shown if NODE_ENV=production /unhandledError', async () 
   expect(response.statusCode).toBe(200);
   const body = JSON.parse(response.body);
   expect(body).not.toHaveProperty('data.warning');
+  expect(body).not.toHaveProperty('data.stack');
 });
 
 test('404 Not Found Handler works', async () => {
