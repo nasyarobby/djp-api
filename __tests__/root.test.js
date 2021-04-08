@@ -5,7 +5,10 @@ const { app } = new DjpApi({ fastifyConfig: { logger: testing } });
 
 test('GET /', async () => {
   const response = await app.inject({ method: 'GET', url: '/' });
+  const body = JSON.parse(response.body);
   expect(response.statusCode).toBe(200);
+  expect(body).toHaveProperty('code');
+  expect(body).toHaveProperty('data');
 });
 
 test('GET /clientError', async () => {
@@ -14,6 +17,8 @@ test('GET /clientError', async () => {
   expect(response.statusCode).toBe(200);
   expect(body).toHaveProperty('message', 'A client error occured');
   expect(body).toHaveProperty('status', 'fail');
+  expect(body).toHaveProperty('code');
+  expect(body).toHaveProperty('data');
 });
 
 test('GET /serverError', async () => {
@@ -34,5 +39,23 @@ test('GET /unhandledError', async () => {
 
 test.todo('Validation Error test');
 test.todo('Debug message shown if NODE_ENV=production');
-test.todo('Not found route');
-test.todo('Swagger is ok');
+
+test('404 Not Found Handler works', async () => {
+  const url = '/someurlwhichdoesnotexist';
+  const response = await app.inject({ method: 'GET', url });
+  expect(response.statusCode).toBe(404);
+  expect(response.body).toBe(`GET ${url} cannot be found`);
+});
+
+test('Swagger is ok', async () => {
+  const urls = [
+    '/documentation/json',
+    '/documentation/static/index.html',
+    '/documentation/uiConfig',
+  ];
+
+  const responses = await Promise.all(urls.map((url) => app.inject({ method: 'GET', url })));
+  responses.forEach((resp) => {
+    expect(resp.statusCode).toBe(200);
+  });
+});
